@@ -18,7 +18,7 @@ class Bird extends StatelessWidget {
       child: Image.asset(Str.bird,
         width: size.width * birdWidth,
         height: size.height * birdHeight,
-        fit: BoxFit.cover,
+        fit: BoxFit.fitWidth,
       ),
     );
   }

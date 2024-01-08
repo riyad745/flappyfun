@@ -47,16 +47,17 @@ class BirdSettings extends StatelessWidget {
                 ),
               ),
             ),
+            
             // GestureDetector(
             //   onTap: () {
-            //     Str.bird = "assets/pics/mouse.png";
+            //     Str.bird = "assets/pics/green.png";
             //     write("bird", Str.bird);
             //   },
             //   child: SizedBox(
             //     width: 75,
             //     height: 75,
             //     child: Image.asset(
-            //       "assets/pics/mouse.png",
+            //       "assets/pics/green.png",
             //       fit: BoxFit.cover,
             //     ),
             //   ),

@@ -8,7 +8,7 @@ int topScore = 0;
 
 /// [Bird] Variables
 double yAxis = 0;
-double birdWidth = 0.183;
+double birdWidth = 0.200;
 double birdHeight = 0.183;
 
 /// Variables to calculate bird movements function [startGame] in [GamePage]

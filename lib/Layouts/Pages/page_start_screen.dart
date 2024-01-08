@@ -37,7 +37,9 @@ class _StartScreenState extends State<StartScreen> {
           SizedBox(height:20),
           Container(
               child: myText("Flappy Fun", Colors.white,40)),
+              SizedBox(height: 15,),
           Bird(yAxis, birdWidth, birdHeight),
+          SizedBox(height: 40,),
           _buttons(),
           AboutUs(size: size,)
         ],
@@ -70,12 +72,19 @@ class AboutUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Container(
-      margin: EdgeInsets.only(top: size.height * 0.2),
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+                colors: [Colors.white,Colors.grey.shade500],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter),
+      ),
+      margin: EdgeInsets.only(top: size.height * 0.1),
       child: GestureDetector(onTap: (){
         showDialog(context: context, builder: (context) {
           return dialog(context);
         },);
-      },child: myText("About Us",Colors.white,20)),
+      },child: myText("About Us",Colors.black87,20)),
     );
   }
 }

@@ -8,6 +8,7 @@ import 'Resources/strings.dart';
 import 'Routes/app_routes.dart';
 
 void main() async {
+    WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   var box = await Hive.openBox('user');
   runApp(const MainApp());

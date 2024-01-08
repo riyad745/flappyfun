@@ -39,21 +39,22 @@ class _GamePageState extends State<GamePage> {
                   Barrier(barrierHeight[0][1], barrierWidth, barrierX[0], false),
                   Barrier(barrierHeight[1][0], barrierWidth, barrierX[1], true),
                   Barrier(barrierHeight[1][1], barrierWidth, barrierX[1], false),
-                  Positioned(
-                    bottom: 1, right: 1, left: 1,
-                    child: Container(child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text("Score : $score",style: TextStyle(color: Colors.white,fontSize: 30,fontFamily: "Magic4"),), // Best TEXT
-                        Text("Best : $topScore",style: TextStyle(color: Colors.white,fontSize: 30,fontFamily: "Magic4")),
-                      ],
-                    ),),
-                  ),
                 ],
               ),
             ),
           ),
         ]),
+        bottomSheet: Container(
+          decoration: BoxDecoration(
+            color: Colors.grey
+          ),
+                      child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text("Score : $score",style: TextStyle(color: Colors.black,fontSize: 25,fontFamily: "Magic4"),), // Best TEXT
+                        Text("Best : $topScore",style: TextStyle(color: Colors.black,fontSize: 25,fontFamily: "Magic4")),
+                      ],
+                    ),),
       ),
     );
   }

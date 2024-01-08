@@ -13,20 +13,37 @@ class RateUs extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        body: Container(
+      body: ListView(
+        shrinkWrap: true,
+        children: [
+          Container(
             width: size.width,
             height: size.height,
             decoration: background(Str.image),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                  RatingDialog(
-                      title: myText("Rate Us",Colors.blueAccent,25),
-                      //   message: Text(" Tap to start Rating "),
-                      image: Icon(Icons.star, size: 100, color: Colors.red),
-                      submitButtonText: 'Submit',
-                      onSubmitted: (response) {
-                      }),
+                Container(
+                  alignment: Alignment(-1, 0),
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back,
+                        size: 30,
+                        color: Colors.white,
+                      )),
+                ),
+                RatingDialog(
+                  title: myText("Rate Us", Colors.blueAccent, 25),
+                  image: Icon(Icons.star, size: 100, color: Colors.red),
+                  submitButtonText: 'Submit',
+                  onSubmitted: (response) {
+                    //go to rating page
+                  },
+                  // starPadding: EdgeInsets.symmetric(horizontal: 8.0), // Adjust the padding as needed
+                ),
                 SizedBox(
                   width: 100,
                   height: 50,
@@ -34,13 +51,17 @@ class RateUs extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.cyan.shade300,
                     ),
-                    onPressed: (){
-                      Share.share("https://github.com/moha-b/Flappy-Bird/releases/download/v.0.4.2/app-release.apk");
-                    }, child: Icon(Icons.share_rounded,size: 30,), ),
+                    onPressed: () {
+                      Share.share("play store link");
+                    },
+                    child: Icon(Icons.share_rounded, size: 30),
+                  ),
                 )
               ],
             ),
-        ),
+          ),
+        ],
+      ),
     );
   }
 }
