@@ -2,6 +2,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../Global/functions.dart';
 import '../../Resources/strings.dart';
 import '../Widgets/widget_bird_settings.dart';
@@ -17,7 +18,36 @@ class Settings extends StatefulWidget {
   State<Settings> createState() => _SettingsState();
 }
 class _SettingsState extends State<Settings> {
+      late BannerAd bannerAd;
+  bool isAdLoaded = false;
 
+
+  initBannerAd(){
+    bannerAd = BannerAd(
+      size: AdSize.banner,
+      adUnitId: "ca-app-pub-9073197646522848/7727194585", 
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            isAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+          print(error);
+        },
+      ), 
+      request: AdRequest(
+
+      ));
+
+      bannerAd.load();
+  }
+@override
+  void initState() {
+    super.initState();
+    initBannerAd();
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -57,6 +87,13 @@ class _SettingsState extends State<Settings> {
           ],
         ),
       ),
+       bottomSheet: isAdLoaded
+            ? SizedBox(
+                height: bannerAd.size.height.toDouble(),
+                width: bannerAd.size.width.toDouble(),
+                child: AdWidget(ad: bannerAd),
+              )
+            : const SizedBox(),
     );
   }
 }

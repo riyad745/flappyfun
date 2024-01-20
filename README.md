@@ -1,4 +1,4 @@
-# flappydoge
+# flappyfun
 
 A new Flutter project.
 

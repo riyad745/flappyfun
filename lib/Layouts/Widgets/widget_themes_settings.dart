@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import '../../Database/database.dart';
 import '../../Global/functions.dart';
@@ -11,6 +12,7 @@ class ThemesSettings extends StatefulWidget {
 }
 
 class _ThemesSettingsState extends State<ThemesSettings> {
+  String selectedTheme = "0"; // Variable to keep track of the selected theme
 
   @override
   Widget build(BuildContext context) {
@@ -18,33 +20,54 @@ class _ThemesSettingsState extends State<ThemesSettings> {
       margin: EdgeInsets.only(bottom: 10),
       child: Column(
         children: [
-          Center(child: Text("Themes",style: TextStyle(fontSize: 20,fontFamily: "Magic4")),),
+          Center(
+            child: Text("Themes", style: TextStyle(fontSize: 20, fontFamily: "Magic4")),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              GestureDetector(onTap: (){
-                setState(() {
-                  Str.image = "0";
-                  write("background", Str.image);
-                  background(Str.image);
-                });
-              },child: Image.asset("assets/pics/0.png",width: 73,height: 60,)),
-              // GestureDetector(onTap: (){
-              //   setState(() {
-              //     Str.image = "1";
-              //     write("background", Str.image);
-              //     background(Str.image);
-              //   });
-              // },child: Image.asset("assets/pics/1.png",width: 73,height: 60,)),
-              // GestureDetector(onTap: (){
-              //   setState(() {
-              //     Str.image = "2";
-              //     write("background", Str.image);
-              //     background(Str.image);
-              //   });
-              // },child: Image.asset("assets/pics/2.png",width: 63,height: 60,)),
-            
+              themeOption("0", "assets/pics/0.png"),
+              // Uncomment the following lines to add more theme options
+              // themeOption("1", "assets/pics/1.png"),
+              // themeOption("2", "assets/pics/2.png"),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget themeOption(String themeId, String imagePath) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedTheme = themeId;
+          Str.image = themeId;
+          write("background", Str.image);
+          background(Str.image);
+        });
+      },
+      child: Column(
+        children: [
+          SizedBox(
+            width: 73,
+            height: 60,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Image.asset(
+                  imagePath,
+                  width: 73,
+                  height: 60,
+                ),
+                if (selectedTheme == themeId) // Show tick mark if selected
+                  Icon(
+                    Icons.check,
+                    color: Colors.green,
+                    size: 30,
+                  ),
+              ],
+            ),
           ),
         ],
       ),

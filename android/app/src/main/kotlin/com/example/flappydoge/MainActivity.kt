@@ -1,4 +1,4 @@
-package com.example.flappydoge
+package com.krsoft.flappyfun
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,6 +1,6 @@
 {
-    "name": "flappydoge",
-    "short_name": "flappydoge",
+    "name": "flappyfun",
+    "short_name": "flappyfun",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, avoid_unnecessary_containers, avoid_print
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:lottie/lottie.dart';
 import '../../Database/database.dart';
 import '../../Global/constant.dart';
@@ -16,6 +17,35 @@ class GamePage extends StatefulWidget {
   State<GamePage> createState() => _GamePageState();
 }
 class _GamePageState extends State<GamePage> {
+  late BannerAd bannerAd;
+  bool isAdLoaded = false;
+
+  initBannerAd(){
+    bannerAd = BannerAd(
+      size: AdSize.banner,
+      adUnitId: "ca-app-pub-9073197646522848/7727194585", 
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            isAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+          print(error);
+        },
+      ), 
+      request: AdRequest(
+
+      ));
+
+      bannerAd.load();
+  }
+  @override
+  void initState() {
+    super.initState();
+    initBannerAd();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +74,13 @@ class _GamePageState extends State<GamePage> {
             ),
           ),
         ]),
+        bottomNavigationBar: isAdLoaded
+            ? SizedBox(
+                height: bannerAd.size.height.toDouble(),
+                width: bannerAd.size.width.toDouble(),
+                child: AdWidget(ad: bannerAd),
+              )
+            : const SizedBox(),
         bottomSheet: Container(
           decoration: BoxDecoration(
             color: Colors.grey
@@ -57,6 +94,7 @@ class _GamePageState extends State<GamePage> {
                     ),),
       ),
     );
+    
   }
 
   // Jump Function:

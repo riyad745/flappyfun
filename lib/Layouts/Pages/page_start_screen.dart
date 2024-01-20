@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 import '../../Global/constant.dart';
 import '../../Global/functions.dart';
@@ -13,6 +14,31 @@ class StartScreen extends StatefulWidget {
   State<StartScreen> createState() => _StartScreenState();
 }
 class _StartScreenState extends State<StartScreen> {
+        late BannerAd bannerAd;
+  bool isAdLoaded = false;
+  
+
+  initBannerAd(){
+    bannerAd = BannerAd(
+      size: AdSize.banner,
+      adUnitId: "ca-app-pub-9073197646522848/7727194585", 
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            isAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+          print(error);
+        },
+      ), 
+      request: AdRequest(
+
+      ));
+
+      bannerAd.load();
+  }
 
   final myBox = Hive.box('user');
 
@@ -21,6 +47,7 @@ class _StartScreenState extends State<StartScreen> {
     // Todo : initialize the database  <---
     init();
     super.initState();
+    initBannerAd();
   }
 
   @override
@@ -45,6 +72,13 @@ class _StartScreenState extends State<StartScreen> {
         ],
       ),
                 ),
+                    bottomSheet: isAdLoaded
+            ? SizedBox(
+                height: bannerAd.size.height.toDouble(),
+                width: bannerAd.size.width.toDouble(),
+                child: AdWidget(ad: bannerAd),
+              )
+            : const SizedBox(),
     );
   }
 }
